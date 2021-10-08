@@ -1,7 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
 
-const ListPage = () => {
-  return <div>List</div>;
-};
+export class ListPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {}
+
+  render() {
+    return <div>List page</div>;
+  }
+}
 
 export default ListPage;
