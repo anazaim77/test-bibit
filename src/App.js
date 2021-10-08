@@ -4,6 +4,10 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import * as Pages from "./containers/pages";
+import axios from "axios";
+import setupAxios from "./apis/setupAxios";
+
+setupAxios(axios, store);
 
 export default function App() {
   return (

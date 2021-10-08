@@ -1,10 +1,17 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import axios from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 import types from "../actions/types";
-
-const BASE_URL_LIST = "https://nextar.flip.id/frontend-test";
 
 export function* movieSaga() {
   yield takeLatest(types.movie.LIST_SG, function* (action) {
-    console.log("asdasd");
+    // const { refresh, params, onSuccess } = action.payload;
+    const { list, meta } = yield select((state) => state.movieReducer);
+
+    let res = yield call(() =>
+      axios.get("", { params: { page: 1, s: "batman" } })
+    );
+    if (res) {
+      console.log("asdasd", res, list, meta);
+    }
   });
 }
