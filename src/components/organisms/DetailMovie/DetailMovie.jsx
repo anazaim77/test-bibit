@@ -2,9 +2,9 @@ import { Card } from "@material-ui/core";
 import { CardMedia, Container } from "@mui/material";
 import React from "react";
 
-const DetailMovie = () => {
+const DetailMovie = ({ data }) => {
   return (
-    <Container maxWidht="md">
+    <Container maxWidth="md">
       <Card
         style={{
           width: 200,
@@ -14,7 +14,8 @@ const DetailMovie = () => {
       >
         <CardMedia
           component="img"
-          image="https://source.unsplash.com/random"
+          image={data.Poster}
+          // image="https://source.unsplash.com/random"
           alt="random"
         />
       </Card>

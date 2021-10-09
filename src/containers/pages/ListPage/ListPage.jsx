@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import AppBarSearch from "../../../components/organisms/AppBarSearch";
 import ListMovies from "../../../components/organisms/ListMovies";
 import { fetch_list_sg } from "../../../redux/actions/movieAction";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PagePaper from "../../templates/PagePaper";
-
-const theme = createTheme();
 
 export class ListPage extends Component {
   constructor(props) {
@@ -27,7 +23,7 @@ export class ListPage extends Component {
   };
 
   handleFetch = ({ params = {}, refresh }) => {
-    const { fetch_list_sg, list, current } = this.props;
+    const { fetch_list_sg } = this.props;
     // console.log(`list.meta`, list.meta);
     this.setState({ loadMore: true });
     fetch_list_sg({
@@ -37,9 +33,10 @@ export class ListPage extends Component {
   };
 
   render() {
+    const { list } = this.props;
     return (
       <PagePaper>
-        <ListMovies data={[1, 2, 3, 4, 5, 6, 7, 8]} />
+        <ListMovies data={list} />
       </PagePaper>
     );
   }

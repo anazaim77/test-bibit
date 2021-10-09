@@ -7,9 +7,17 @@ export const fetch_list_sg = (payload) => {
     payload,
   };
 };
+export const fetch_detail_sg = (payload) => ({
+  type: types.movie.DETAIL_SG,
+  payload,
+});
 
-export const store_list_sg = (payload) => ({
+export const store_list_rd = (payload) => ({
   type: types.movie.LIST_RD,
+  payload,
+});
+export const store_detail_rd = (payload) => ({
+  type: types.movie.DETAIL_RD,
   payload,
 });
 
