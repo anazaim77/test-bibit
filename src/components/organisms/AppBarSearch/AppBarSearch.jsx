@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function AppBarSearch() {
+const AppBarSearch = ({ title }) => {
   return (
     <AppBar position="relative">
       <Toolbar>
@@ -67,7 +67,7 @@ export default function AppBarSearch() {
           component="div"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          OMDB
+          {title}
         </Typography>
         <Search>
           <SearchIconWrapper>
@@ -81,4 +81,10 @@ export default function AppBarSearch() {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+AppBarSearch.defaultProps = {
+  title: "OMDB",
+};
+
+export default AppBarSearch;
