@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import AppBarSearch from "../../../components/organisms/AppBarSearch";
+import ListMovies from "../../../components/organisms/ListMovies";
 import { fetch_list_sg } from "../../../redux/actions/movieAction";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import PagePaper from "../../templates/PagePaper";
+
+const theme = createTheme();
 
 export class ListPage extends Component {
   constructor(props) {
@@ -9,7 +15,7 @@ export class ListPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetch_list_sg();
+    this.handleRefresh();
   }
 
   handleRefresh = () => {
@@ -20,26 +26,22 @@ export class ListPage extends Component {
     this.handleFetch({ refresh: false });
   };
 
-  handleFetch = ({ params, refresh }) => {
+  handleFetch = ({ params = {}, refresh }) => {
     const { fetch_list_sg, list, current } = this.props;
     // console.log(`list.meta`, list.meta);
     this.setState({ loadMore: true });
     fetch_list_sg({
       refresh,
-      params: {
-        page: refresh ? 1 : list.meta.page + 1,
-        ...params,
-      },
-      onSuccess: () => {
-        setTimeout(() => {
-          this.setState({ loadMore: false });
-        }, 1000);
-      },
+      params,
     });
   };
 
   render() {
-    return <div>List page</div>;
+    return (
+      <PagePaper>
+        <ListMovies data={[1, 2, 3, 4, 5, 6, 7, 8]} />
+      </PagePaper>
+    );
   }
 }
 
