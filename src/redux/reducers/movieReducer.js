@@ -10,18 +10,19 @@ const initialState = {
   current: {},
   loading_refresh: false,
   loading_more: false,
+  query: "",
 };
 
 export const movieReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case types.movie.LIST_RD:
-      return { ...state, list: payload };
+      return { ...state, ...payload };
     case types.movie.DETAIL_RD:
       return { ...state, current: payload };
     case types.movie.LOAD_RD:
       const { refresh } = payload;
-      return { ...state, loading_more: !refresh, loading_refresh: refresh };
+      return { ...state, loading_more: !refresh, loading_refresh: true };
     case types.movie.LOAD_DONE_RD:
       return { ...state, loading_more: false, loading_refresh: false };
     default:

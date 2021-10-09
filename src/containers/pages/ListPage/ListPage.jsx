@@ -22,21 +22,21 @@ export class ListPage extends Component {
     this.handleFetch({ refresh: false });
   };
 
-  handleFetch = ({ params = {}, refresh }) => {
+  handleFetch = ({ refresh }) => {
     const { fetch_list_sg } = this.props;
-    // console.log(`list.meta`, list.meta);
-    this.setState({ loadMore: true });
-    fetch_list_sg({
-      refresh,
-      params,
-    });
+    fetch_list_sg({ refresh });
   };
 
   render() {
-    const { list } = this.props;
+    const { list, loading_refresh, loading_more } = this.props;
     return (
       <PagePaper>
-        <ListMovies data={list} />
+        <ListMovies
+          loading={loading_refresh}
+          loadingMore={loading_more}
+          data={list}
+          handleMore={this.handleMore}
+        />
       </PagePaper>
     );
   }
@@ -45,6 +45,8 @@ export class ListPage extends Component {
 const mapState = ({ movieReducer }) => ({
   list: movieReducer.list,
   current: movieReducer.current,
+  loading_refresh: movieReducer.loading_refresh,
+  loading_more: movieReducer.loading_more,
 });
 
 const mapDispatch = {

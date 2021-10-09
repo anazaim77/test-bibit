@@ -30,11 +30,11 @@ export class DetailPage extends Component {
   };
 
   render() {
-    const { current } = this.props;
+    const { current, loading_refresh } = this.props;
 
     return (
       <PagePaper title={"Detail"}>
-        <DetailMovie data={current} />
+        <DetailMovie loading={loading_refresh} data={current} />
       </PagePaper>
     );
   }
@@ -43,6 +43,7 @@ export class DetailPage extends Component {
 const mapState = ({ movieReducer }) => ({
   list: movieReducer.list,
   current: movieReducer.current,
+  loading_refresh: movieReducer.loading_refresh,
 });
 
 const mapDispatch = {
