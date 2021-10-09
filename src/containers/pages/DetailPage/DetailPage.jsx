@@ -33,7 +33,7 @@ export class DetailPage extends Component {
     const { current, loading_refresh } = this.props;
 
     return (
-      <PagePaper title={"Detail"}>
+      <PagePaper title={"Detail"} noSearch={true}>
         <DetailMovie loading={loading_refresh} data={current} />
       </PagePaper>
     );

@@ -11,11 +11,11 @@ import types from "../actions/types";
 export function* movieSaga() {
   yield takeLatest(types.movie.LIST_SG, function* (action) {
     const { refresh } = action.payload;
-    const { list, meta } = yield select((state) => state.movieReducer);
+    const { list, meta, query } = yield select((state) => state.movieReducer);
     const currentPage = refresh ? 1 : meta.page + 1;
     yield put(set_loading_rd({ refresh }));
     let res = yield call(() =>
-      axios.get("", { params: { page: currentPage, s: "batman" } })
+      axios.get("", { params: { page: currentPage, s: query } })
     );
     if (res) {
       yield put(

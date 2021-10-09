@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ListMovies from "../../../components/organisms/ListMovies";
 import { fetch_list_sg } from "../../../redux/actions/movieAction";
 import PagePaper from "../../templates/PagePaper";
+import _ from "lodash";
 
 export class ListPage extends Component {
   constructor(props) {
@@ -12,6 +13,13 @@ export class ListPage extends Component {
 
   componentDidMount() {
     this.handleRefresh();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(`this.props.query`, this.props.query);
+    if (this.props.query !== prevProps.query) {
+      this.handleRefresh();
+    }
   }
 
   handleRefresh = () => {
@@ -28,7 +36,7 @@ export class ListPage extends Component {
   };
 
   render() {
-    const { list, loading_refresh, loading_more } = this.props;
+    const { list, loading_refresh, meta, loading_more } = this.props;
     return (
       <PagePaper>
         <ListMovies
@@ -36,6 +44,8 @@ export class ListPage extends Component {
           loadingMore={loading_more}
           data={list}
           handleMore={this.handleMore}
+          withLoadMore={meta.total_page > meta.page}
+          noData={_.isEmpty(list) && loading_refresh === false}
         />
       </PagePaper>
     );
@@ -47,6 +57,8 @@ const mapState = ({ movieReducer }) => ({
   current: movieReducer.current,
   loading_refresh: movieReducer.loading_refresh,
   loading_more: movieReducer.loading_more,
+  query: movieReducer.query,
+  meta: movieReducer.meta,
 });
 
 const mapDispatch = {

@@ -5,6 +5,9 @@ import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
+import { set_query_rd } from "../../../redux/actions/movieAction";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -46,19 +49,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const AppBarSearch = ({ title }) => {
+const AppBarSearch = ({ title, noSearch }) => {
+  const dispatch = useDispatch();
+  const { query } = useSelector((state) => state.movieReducer);
+  const handleSearch = _.debounce((e) => {
+    // console.log("text", e.target.value);
+    dispatch(set_query_rd(e.target.value));
+  }, 350);
   return (
     <AppBar position="relative">
       <Toolbar>
-        {/* <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          //   sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton> */}
         <Typography
           variant="h6"
           noWrap
@@ -67,7 +67,7 @@ const AppBarSearch = ({ title }) => {
         >
           {title}
         </Typography>
-        {!title && (
+        {!noSearch && (
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -75,6 +75,8 @@ const AppBarSearch = ({ title }) => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={handleSearch}
+              defaultValue={query}
             />
           </Search>
         )}

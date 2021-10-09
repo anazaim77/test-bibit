@@ -1,16 +1,17 @@
 import types from "../actions/types";
+import _ from "lodash";
 
 const initialState = {
   list: [],
   meta: {
     page: 1,
-    total_page: 0,
+    total_page: 1,
     total_item: 0,
   },
   current: {},
   loading_refresh: false,
   loading_more: false,
-  query: "",
+  query: "batman",
 };
 
 export const movieReducer = (state = initialState, action) => {
@@ -25,6 +26,8 @@ export const movieReducer = (state = initialState, action) => {
       return { ...state, loading_more: !refresh, loading_refresh: true };
     case types.movie.LOAD_DONE_RD:
       return { ...state, loading_more: false, loading_refresh: false };
+    case types.movie.SET_QUERY_RD:
+      return { ...state, query: _.isEmpty(payload) ? "batman" : payload };
     default:
       return state;
   }

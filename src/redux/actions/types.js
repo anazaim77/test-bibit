@@ -9,6 +9,7 @@ const types = {
     DETAIL_RD: "DETAIL_RD",
     LOAD_RD: "LOADING_RD",
     LOAD_DONE_RD: "LOADING_DONE_RD",
+    SET_QUERY_RD: "SET_QUERY_RD",
   },
 };
 

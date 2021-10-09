@@ -18,11 +18,11 @@ function Copyright() {
   );
 }
 
-const PagePaper = ({ children, title }) => {
+const PagePaper = ({ children, title, noSearch }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBarSearch title={title} />
+      <AppBarSearch title={title} noSearch={noSearch} />
       <main>{children}</main>
       {/* Footer */}
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
